@@ -83,7 +83,7 @@ if (!class_exists('Directorist_RFL')) {
             $top_color = get_directorist_option('top_plan_badge_color', '#EAC448');
             $second_color = get_directorist_option('second_top_plan_badge_color', '#8C92AC');
             $third_color = get_directorist_option('third_top_plan_badge_color', '#F76C6F');
-			$fourth_color = get_directorist_option('fourth_top_plan_badge_color', '#6e97f7');
+	    $fourth_color = get_directorist_option('fourth_top_plan_badge_color', '#6e97f7');
             ?>
             <style>
                 .directorist-badge-fourth_top_ranked, .atbd_badge_third_top_ranked{
@@ -106,7 +106,7 @@ if (!class_exists('Directorist_RFL')) {
             $top_badge = get_directorist_option('top_plan_badge', __('Premium', 'directorist-rank-featured-listings'));
             $second_badge = get_directorist_option('second_top_plan_badge', __('Pro', 'directorist-rank-featured-listings'));
             $third_badge = get_directorist_option('third_top_plan_badge', __('Basic', 'directorist-rank-featured-listings'));
-			$third_badge = get_directorist_option('fourth_top_plan_badge', __('Free', 'directorist-rank-featured-listings'));
+	    $third_badge = get_directorist_option('fourth_top_plan_badge', __('Free', 'directorist-rank-featured-listings'));
             $plan_id = get_post_meta(get_the_id(), '_fm_plans', true);
 
             $rank_meta = get_post_meta( get_the_ID(), '_atbdp_feature_rank', true );
@@ -257,7 +257,7 @@ if (!class_exists('Directorist_RFL')) {
             $level_one   = get_directorist_option('top_plan');
             $level_two   = get_directorist_option('second_top_plan');
             $level_three = get_directorist_option('third_top_plan');
-			$level_four = get_directorist_option('fourth_top_plan');
+	    $level_four = get_directorist_option('fourth_top_plan');
             $plan_id     = get_post_meta($listing_id, '_fm_plans', true);
             $featured    = get_post_meta($listing_id, '_featured', true);
 
@@ -471,7 +471,7 @@ if (!class_exists('Directorist_RFL')) {
             $level_one   = get_directorist_option('top_plan');
             $level_two   = get_directorist_option('second_top_plan');
             $level_three = get_directorist_option('third_top_plan');
-			$level_four = get_directorist_option('fourth_top_plan');
+	    $level_four = get_directorist_option('fourth_top_plan');
 
             if ( $level_one || $level_two || $level_three ) {
                 $args['meta_query']['rank_featured_clause'] = [
