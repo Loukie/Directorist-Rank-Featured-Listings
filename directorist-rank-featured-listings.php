@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Directorist - Rank Featured Listings
+ * Plugin Name: Directorist - Custom Rank Featured Listings
  * Plugin URI: http://directorist.com/
  * Description: This is an extension that allows administrator to sort/rank featured listings.
  * Version: 1.3.3
@@ -83,8 +83,12 @@ if (!class_exists('Directorist_RFL')) {
             $top_color = get_directorist_option('top_plan_badge_color', '#EAC448');
             $second_color = get_directorist_option('second_top_plan_badge_color', '#8C92AC');
             $third_color = get_directorist_option('third_top_plan_badge_color', '#F76C6F');
+			$fourth_color = get_directorist_option('fourth_top_plan_badge_color', '#6e97f7');
             ?>
             <style>
+                .directorist-badge-fourth_top_ranked, .atbd_badge_third_top_ranked{
+                    color: <?php echo $fourth_color; ?> !important;
+                }
                 .directorist-badge-third_top_ranked, .atbd_badge_third_top_ranked{
                     color: <?php echo $third_color; ?> !important;
                 }
@@ -102,6 +106,7 @@ if (!class_exists('Directorist_RFL')) {
             $top_badge = get_directorist_option('top_plan_badge', __('Premium', 'directorist-rank-featured-listings'));
             $second_badge = get_directorist_option('second_top_plan_badge', __('Pro', 'directorist-rank-featured-listings'));
             $third_badge = get_directorist_option('third_top_plan_badge', __('Basic', 'directorist-rank-featured-listings'));
+			$third_badge = get_directorist_option('fourth_top_plan_badge', __('Free', 'directorist-rank-featured-listings'));
             $plan_id = get_post_meta(get_the_id(), '_fm_plans', true);
 
             $rank_meta = get_post_meta( get_the_ID(), '_atbdp_feature_rank', true );
@@ -118,6 +123,10 @@ if (!class_exists('Directorist_RFL')) {
                 case get_directorist_option('third_top_plan'):
                     $field['label'] = $third_badge;
                     $field['class'] = 'third_top_ranked';
+                    break;
+                case get_directorist_option('fourth_top_plan'):
+                    $field['label'] = $third_badge;
+                    $field['class'] = 'fourth_top_ranked';
                     break;
             }
 
@@ -173,6 +182,23 @@ if (!class_exists('Directorist_RFL')) {
                 'type' => 'color',
                 'value' => '#F76C6F',
             ];
+            $rank_featured_fields['fourth_top_plan'] = [
+                'label'     => __('Select Plan', 'directorist-rank-featured-listings'),
+                'type'      => 'select',
+                'show-default-option' => true,
+                'options'   => $this->get_plans(),
+            ];
+            $rank_featured_fields['fourth_top_plan_badge'] = [
+                'type'              => 'text',
+                'label'             => __('Badge Text', 'directorist-rank-featured-listings'),
+                'value'             => __('Free', 'directorist-rank-featured-listings'),
+            ];
+            $rank_featured_fields['fourth_top_plan_badge_color'] = [
+                'label' => __('Badge Color', 'directorist-rank-featured-listings'),
+                'type' => 'color',
+                'value' => '#6e97f7',
+            ];
+
 
             return $rank_featured_fields;
         }
@@ -200,6 +226,12 @@ if (!class_exists('Directorist_RFL')) {
                         'third_top_plan', 'third_top_plan_badge', 'third_top_plan_badge_color'
                      ],
                 ],
+                'fourth_top' => [
+                    'title'       => __('Rank Four', 'directorist-rank-featured-listings'),
+                    'fields'      =>  [
+                        'fourth_top_plan', 'fourth_top_plan_badge', 'fourth_top_plan_badge_color'
+                     ],
+                ],
                 ] ),
             ];
 
@@ -225,17 +257,21 @@ if (!class_exists('Directorist_RFL')) {
             $level_one   = get_directorist_option('top_plan');
             $level_two   = get_directorist_option('second_top_plan');
             $level_three = get_directorist_option('third_top_plan');
+			$level_four = get_directorist_option('fourth_top_plan');
             $plan_id     = get_post_meta($listing_id, '_fm_plans', true);
             $featured    = get_post_meta($listing_id, '_featured', true);
 
             if ( $featured ) {
                 if ($level_one == $plan_id) {
-                    update_post_meta($listing_id, '_atbdp_feature_rank', 3);
+                    update_post_meta($listing_id, '_atbdp_feature_rank', 4);
                 }
                 if ($level_two == $plan_id) {
-                    update_post_meta($listing_id, '_atbdp_feature_rank', 2);
+                    update_post_meta($listing_id, '_atbdp_feature_rank', 3);
                 }
                 if ($level_three == $plan_id) {
+                    update_post_meta($listing_id, '_atbdp_feature_rank', 2);
+                }
+                if ($level_four == $plan_id) {
                     update_post_meta($listing_id, '_atbdp_feature_rank', 1);
                 }
             } else {
@@ -435,6 +471,7 @@ if (!class_exists('Directorist_RFL')) {
             $level_one   = get_directorist_option('top_plan');
             $level_two   = get_directorist_option('second_top_plan');
             $level_three = get_directorist_option('third_top_plan');
+			$level_four = get_directorist_option('fourth_top_plan');
 
             if ( $level_one || $level_two || $level_three ) {
                 $args['meta_query']['rank_featured_clause'] = [
