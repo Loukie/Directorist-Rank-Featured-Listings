@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Directorist - Custom Rank Featured Listings
+ * Plugin Name: Directorist - Rank Featured Listings
  * Plugin URI: http://directorist.com/
  * Description: This is an extension that allows administrator to sort/rank featured listings.
  * Version: 1.3.3
